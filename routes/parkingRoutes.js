@@ -4,7 +4,7 @@ const parkingController = require("./../controllers/parkingController");
 const router = express.Router();
 
 router.get('/get_All', function(req, res, next) {
-    parkingController.get_Allparking(
+    parkingController.getAllparking(
       (err)=> {
         return next(err);
       },

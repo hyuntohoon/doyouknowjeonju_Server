@@ -9,7 +9,7 @@ const pool = mysql.createPool({
     database:cnf.database
 })
 
-exports.get_Allhospital = (fail, done) => {
+exports.getAllhospital = (fail, done) => {
     pool.getConnection((err, conn) => { 
         if(err) {
             return fail(err);
