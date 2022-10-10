@@ -5,6 +5,6 @@ const router = express.Router();
 
 router
   .route("/")
-  .get(bookmarkController.getAllBookmark);
+  .get(bookmarkController.getBookmark);
 
 module.exports = router;

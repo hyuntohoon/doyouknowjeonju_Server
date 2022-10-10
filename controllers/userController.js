@@ -9,17 +9,63 @@ const pool = mysql.createPool({
   database: config.database,
 });
 
-exports.signup = catchAsync(
+exports.singup = catchAsync(
   async (req, res, next) => {
-    const aa = await req.body;
-    console.log(aa);
-    res.wirte(aa);
+    (fail, done) => {
+      pool.getConnection((err, conn) => {
+        if (err) return fail(err);
+      });
+      let id = req.body.id;
+      let pw = req.body.pw;
+      let name = req.body.name;
+      let phoneNumber = req.body.phoneNumber;
+      let sql = "ALTER TABLE user ADD COLUMN "; // 추가하기
+      conn.query(sql, (err, rows) => {
+        if (err) {
+          return fail(err);
+        }
+        conn.release();
+        done(rows);
+      });
+    };
+  }
+);
 
-    res.state(201).json({
-      status: "succes",
-      data: {
-        aa: aa,
-      },
-    });
+exports.getUser = catchAsync(
+  async (req, res, next) => {
+    (fail, done) => {
+      pool.getConnection((err, conn) => {
+        if (err) return fail(err);
+      });
+      let id = req.body.id;
+      let sql = `select ${id} from user`; // 추가하기
+      conn.query(sql, (err, rows) => {
+        if (err) {
+          return fail(err);
+        }
+        conn.release();
+        done(rows);
+      });
+    };
+  }
+);
+
+exports.deleteUser = catchAsync(
+  // 아직 안 해도 됨
+  async (req, res, next) => {
+    (fail, done) => {
+      pool.getConnection((err, conn) => {
+        if (err) return fail(err);
+      });
+      let id = req.body.id;
+      let sql = `DELETE FROM user WHERE userId = '${id}'`; // 추가하기
+      conn.query(sql, (err, rows) => {
+        if (err) {
+          return fail(err);
+        }
+        conn.release();
+        done(rows);
+      });
+    };
   }
 );
