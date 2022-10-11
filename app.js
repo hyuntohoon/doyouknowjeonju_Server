@@ -8,11 +8,11 @@ const bookmarkRouter = require("./routes/bookmarkRoutes");
 
 const app = express();
 
-app.use("/api/user", userRouter);
-app.use("/api/todolist", todolistRouter);
-app.use("/api/parking", parkingRouter);
-app.use("/api/hospital", hospitalRouter);
-app.use("/api/bookmark", bookmarkRouter);
+app.use("/user", userRouter);
+app.use("/todolist", todolistRouter);
+app.use("/parking", parkingRouter);
+app.use("/hospital", hospitalRouter);
+app.use("/bookmark", bookmarkRouter);
 
 app.use((req, res, next) => {
   console.log("middleware");

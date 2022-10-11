@@ -24,3 +24,19 @@ exports.getAllhospital = (fail, done) => {
         });
     });
 };
+
+exports.getAllhospital10000000 = (fail, done) => {
+    pool.getConnection((err, conn) => { 
+        if(err) {
+            return fail(err);
+        }
+        let sql = "select * from hospital_10000000";
+        conn.query(sql, (err, rows) => {
+        if(err) {
+            return fail(err);
+        }
+        conn.release();
+        done(rows);
+        });
+    });
+};
