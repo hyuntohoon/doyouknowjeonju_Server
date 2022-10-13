@@ -1,9 +1,9 @@
 module.exports = {
   SQLpool: {
+    connectionLimit: 50,
     host: "localhost",
     user: "root",
-    password: "root",
-    port: 8000,
-    database: "test1",
+    password: "ua8747ll",
+    database: "test",
   },
 };
