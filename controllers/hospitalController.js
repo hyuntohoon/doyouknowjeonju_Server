@@ -30,7 +30,7 @@ exports.getAllhospital10000000 = (fail, done) => {
         if(err) {
             return fail(err);
         }
-        let sql = "select * from hospital_10000000";
+        let sql = "SELECT * FROM hospital WHERE hos_Subject LIKE '1%'";
         conn.query(sql, (err, rows) => {
         if(err) {
             return fail(err);
@@ -46,7 +46,7 @@ exports.getAllhospital01000000 = (fail, done) => {
         if(err) {
             return fail(err);
         }
-        let sql = "select * from hospital_01000000";
+        let sql = "SELECT * FROM hospital WHERE hos_Subject LIKE '_1%'";
         conn.query(sql, (err, rows) => {
         if(err) {
             return fail(err);
@@ -62,7 +62,7 @@ exports.getAllhospital00100000 = (fail, done) => {
         if(err) {
             return fail(err);
         }
-        let sql = "select * from hospital_00100000";
+        let sql = "SELECT * FROM hospital WHERE hos_Subject LIKE '__1%'";
         conn.query(sql, (err, rows) => {
         if(err) {
             return fail(err);
@@ -78,7 +78,7 @@ exports.getAllhospital00010000 = (fail, done) => {
         if(err) {
             return fail(err);
         }
-        let sql = "select * from hospital_00010000";
+        let sql = "SELECT * FROM hospital WHERE hos_Subject LIKE '___1%'";
         conn.query(sql, (err, rows) => {
         if(err) {
             return fail(err);
@@ -94,7 +94,7 @@ exports.getAllhospital00001000 = (fail, done) => {
         if(err) {
             return fail(err);
         }
-        let sql = "select * from hospital_00001000";
+        let sql = "SELECT * FROM hospital WHERE hos_Subject LIKE '____1%'";
         conn.query(sql, (err, rows) => {
         if(err) {
             return fail(err);
@@ -110,7 +110,7 @@ exports.getAllhospital00000100 = (fail, done) => {
         if(err) {
             return fail(err);
         }
-        let sql = "select * from hospital_00000100";
+        let sql = "SELECT * FROM hospital WHERE hos_Subject LIKE '_____1%'";
         conn.query(sql, (err, rows) => {
         if(err) {
             return fail(err);
@@ -126,7 +126,7 @@ exports.getAllhospital00000010 = (fail, done) => {
         if(err) {
             return fail(err);
         }
-        let sql = "select * from hospital_00000010";
+        let sql = "SELECT * FROM hospital WHERE hos_Subject LIKE '______1%'";
         conn.query(sql, (err, rows) => {
         if(err) {
             return fail(err);
@@ -142,7 +142,7 @@ exports.getAllhospital00000001 = (fail, done) => {
         if(err) {
             return fail(err);
         }
-        let sql = "select * from hospital_00000001";
+        let sql = "SELECT * FROM hospital WHERE hos_Subject LIKE '%1'";
         conn.query(sql, (err, rows) => {
         if(err) {
             return fail(err);
