@@ -1,5 +1,9 @@
 const mysql = require('mysql');
+var bodyParser = require('body-parser')
 const cnf = require('../cnf').SQLpool;
+
+var app = express()
+app.use(express.json())
 
 const pool = mysql.createPool({
     connectionLimit:cnf.connectionLimit,
