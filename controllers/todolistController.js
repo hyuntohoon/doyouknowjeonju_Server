@@ -1,5 +1,10 @@
+var express = require('express');
 const mysql = require('mysql');
+var bodyParser = require('body-parser')
 const cnf = require('../cnf').SQLpool;
+
+var app = express()
+app.use(express.json())
 
 const pool = mysql.createPool({
     connectionLimit:cnf.connectionLimit,
@@ -48,7 +53,7 @@ exports.insertTodolist = catchAsync(
       });
       let string = req.body.string;
       let userId = req.body.userId; // 쿠기나 세션 혹은 jwt?로 ID 가져와야 해서 바꿔야할듯 
-      let sql = `insert into todolist(string, user_Id) values('${string}', '${userId}')`;
+      let sql = `insert into todolist(string, userId) values('${string}', '${userId}')`;
       conn.query(sql, (err, rows) => {
         if (err) {
           return fail(err);
@@ -67,7 +72,7 @@ exports.insertTodolist = catchAsync(
       let check = req.body.check;
       let string = req.body.string;
       let userId = req.body.userId; // 쿠기나 세션 혹은 jwt?로 ID 가져와야 해서 바꿔야할듯
-      let sql = `update todolist set string = '${string}' where user_Id = '${userId}' and check = '${check}'`;
+      let sql = `update todolist set string = '${string}' where userId = '${userId}' and isCheck = ${check}`;
       conn.query(sql, (err, rows) => {
         if (err) {
           return fail(err);
@@ -86,7 +91,7 @@ exports.insertTodolist = catchAsync(
       let check = req.body.check;
       let string = req.body.string;
       let userId = req.body.userId; // 쿠기나 세션 혹은 jwt?로 ID 가져와야 해서 바꿔야할듯
-      let sql = `delete from todolist where user_Id ='${userId}' and check = '${check}'`;
+      let sql = `delete from todolist where userId ='${userId}' and isCheck = ${check}`;
       conn.query(sql, (err, rows) => {
         if (err) {
           return fail(err);
