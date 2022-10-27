@@ -5,7 +5,11 @@ const router = express.Router();
 
 router
   .route("/")
+  .post(bookmarkController.createBookmark);
+
+router
+  .route("/:id")
   .get(bookmarkController.getBookmark)
-  .post(bookmarkController.getBookmark);
+  .delete(bookmarkController.deleteBookmark);
 
 module.exports = router;

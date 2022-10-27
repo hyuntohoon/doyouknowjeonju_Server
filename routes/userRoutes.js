@@ -6,6 +6,10 @@ const router = express.Router();
 
 module.exports = router;
 
-router.post("/signup", userController.singup);
+router.route("/").post(userController.singup);
 
+router
+  .route("/:id")
+  .get(userController.getUser)
+  .delete(userController.deleteUser);
 module.exports = router;
