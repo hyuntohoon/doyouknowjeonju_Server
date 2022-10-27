@@ -7,11 +7,6 @@ const hospitalRouter = require("./routes/hospitalRoutes");
 const bookmarkRouter = require("./routes/bookmarkRoutes");
 
 const app = express();
-const bodyParser = require("body-parser");
-app.use(express.json());
-app.use(
-  bodyParser.urlencoded({ extended: true })
-);
 
 app.use("/user", userRouter);
 app.use("/todolist", todolistRouter);
