@@ -1,9 +1,9 @@
 const mysql = require('mysql');
 var bodyParser = require('body-parser')
 const cnf = require('../cnf').SQLpool;
-
-var app = express()
-app.use(express.json())
+const catchAsync = require("../utils/catchAsync");
+const { parse } = require('path');
+const { stringify } = require('querystring');
 
 const pool = mysql.createPool({
     connectionLimit:cnf.connectionLimit,
@@ -13,146 +13,147 @@ const pool = mysql.createPool({
     database:cnf.database
 })
 
-exports.getAllhospital = (fail, done) => {
-    pool.getConnection((err, conn) => { 
-        if(err) {
-            return fail(err);
-        }
+
+exports.searchAllhospital = catchAsync(
+    async (req, res, next) => {
+      await pool.getConnection((err, conn) => {
+        if (err) return fail(err);
         let sql = "select * from hospital";
         conn.query(sql, (err, rows) => {
-        if(err) {
-            return fail(err);
-        }
-        conn.release();
-        done(rows);
+          if (err) throw err;
+          res.send(rows);
         });
-    });
-};
+        conn.release();
+      });
+    }
+);
 
-exports.getAllhospital10000000 = (fail, done) => {
-    pool.getConnection((err, conn) => { 
-        if(err) {
-            return fail(err);
-        }
-        let sql = "SELECT * FROM hospital WHERE hos_Subject LIKE '1%'";
-        conn.query(sql, (err, rows) => {
-        if(err) {
-            return fail(err);
-        }
-        conn.release();
-        done(rows);
+exports.searchOnehospital = catchAsync(
+    async (req, res, next) => {
+      await pool.getConnection((err, conn) => {
+        if (err) return fail(err);
+        let name = req.params.name;
+        let data = "%" + name + "%";
+        let sql = `select * from hospital where hosName LIKE ?`;
+        conn.query(sql, [data], (err, rows) => {
+          if (err) throw err;
+          res.send(rows);
         });
-    });
-};
+        conn.release();
+      });
+    }
+);
 
-exports.getAllhospital01000000 = (fail, done) => {
-    pool.getConnection((err, conn) => { 
-        if(err) {
-            return fail(err);
-        }
-        let sql = "SELECT * FROM hospital WHERE hos_Subject LIKE '_1%'";
+exports.allHospital10000000 = catchAsync(
+    async (req, res, next) => {
+      await pool.getConnection((err, conn) => {
+        if (err) return fail(err);
+        let sql = "SELECT * FROM hospital WHERE hosSubject LIKE '1%'";
         conn.query(sql, (err, rows) => {
-        if(err) {
-            return fail(err);
-        }
-        conn.release();
-        done(rows);
+          if (err) throw err;
+          res.send(rows);
         });
-    });
-};
+        conn.release();
+      });
+    }
+);
 
-exports.getAllhospital00100000 = (fail, done) => {
-    pool.getConnection((err, conn) => { 
-        if(err) {
-            return fail(err);
-        }
-        let sql = "SELECT * FROM hospital WHERE hos_Subject LIKE '__1%'";
-        conn.query(sql, (err, rows) => {
-        if(err) {
-            return fail(err);
-        }
-        conn.release();
-        done(rows);
-        });
-    });
-};
 
-exports.getAllhospital00010000 = (fail, done) => {
-    pool.getConnection((err, conn) => { 
-        if(err) {
-            return fail(err);
-        }
-        let sql = "SELECT * FROM hospital WHERE hos_Subject LIKE '___1%'";
+exports.allHospital01000000 = catchAsync(
+    async (req, res, next) => {
+      await pool.getConnection((err, conn) => {
+        if (err) return fail(err);
+        let sql = "SELECT * FROM hospital WHERE hosSubject LIKE '_1%'";
         conn.query(sql, (err, rows) => {
-        if(err) {
-            return fail(err);
-        }
-        conn.release();
-        done(rows);
+          if (err) throw err;
+          res.send(rows);
         });
-    });
-};
+        conn.release();
+      });
+    }
+);
 
-exports.getAllhospital00001000 = (fail, done) => {
-    pool.getConnection((err, conn) => { 
-        if(err) {
-            return fail(err);
-        }
-        let sql = "SELECT * FROM hospital WHERE hos_Subject LIKE '____1%'";
+exports.allHospital00100000 = catchAsync(
+    async (req, res, next) => {
+      await pool.getConnection((err, conn) => {
+        if (err) return fail(err);
+        let sql = "SELECT * FROM hospital WHERE hosSubject LIKE '__1%'";
         conn.query(sql, (err, rows) => {
-        if(err) {
-            return fail(err);
-        }
-        conn.release();
-        done(rows);
+          if (err) throw err;
+          res.send(rows);
         });
-    });
-};
+        conn.release();
+      });
+    }
+);
 
-exports.getAllhospital00000100 = (fail, done) => {
-    pool.getConnection((err, conn) => { 
-        if(err) {
-            return fail(err);
-        }
-        let sql = "SELECT * FROM hospital WHERE hos_Subject LIKE '_____1%'";
+exports.allHospital00010000 = catchAsync(
+    async (req, res, next) => {
+      await pool.getConnection((err, conn) => {
+        if (err) return fail(err);
+        let sql = "SELECT * FROM hospital WHERE hosSubject LIKE '___1%'";
         conn.query(sql, (err, rows) => {
-        if(err) {
-            return fail(err);
-        }
-        conn.release();
-        done(rows);
+          if (err) throw err;
+          res.send(rows);
         });
-    });
-};
+        conn.release();
+      });
+    }
+);
 
-exports.getAllhospital00000010 = (fail, done) => {
-    pool.getConnection((err, conn) => { 
-        if(err) {
-            return fail(err);
-        }
-        let sql = "SELECT * FROM hospital WHERE hos_Subject LIKE '______1%'";
+exports.allHospital00001000 = catchAsync(
+    async (req, res, next) => {
+      await pool.getConnection((err, conn) => {
+        if (err) return fail(err);
+        let sql = "SELECT * FROM hospital WHERE hosSubject LIKE '____1%'";
         conn.query(sql, (err, rows) => {
-        if(err) {
-            return fail(err);
-        }
-        conn.release();
-        done(rows);
+          if (err) throw err;
+          res.send(rows);
         });
-    });
-};
+        conn.release();
+      });
+    }
+);
 
-exports.getAllhospital00000001 = (fail, done) => {
-    pool.getConnection((err, conn) => { 
-        if(err) {
-            return fail(err);
-        }
-        let sql = "SELECT * FROM hospital WHERE hos_Subject LIKE '%1'";
+exports.allHospital00000100 = catchAsync(
+    async (req, res, next) => {
+      await pool.getConnection((err, conn) => {
+        if (err) return fail(err);
+        let sql = "SELECT * FROM hospital WHERE hosSubject LIKE '_____1%'";
         conn.query(sql, (err, rows) => {
-        if(err) {
-            return fail(err);
-        }
-        conn.release();
-        done(rows);
+          if (err) throw err;
+          res.send(rows);
         });
-    });
-};
+        conn.release();
+      });
+    }
+);
+
+exports.allHospital00000010 = catchAsync(
+    async (req, res, next) => {
+      await pool.getConnection((err, conn) => {
+        if (err) return fail(err);
+        let sql = "SELECT * FROM hospital WHERE hosSubject LIKE '______1%'";
+        conn.query(sql, (err, rows) => {
+          if (err) throw err;
+          res.send(rows);
+        });
+        conn.release();
+      });
+    }
+);
+
+
+exports.allHospital00000001 = catchAsync(
+    async (req, res, next) => {
+      await pool.getConnection((err, conn) => {
+        if (err) return fail(err);
+        let sql = "SELECT * FROM hospital WHERE hosSubject LIKE '%1'";
+        conn.query(sql, (err, rows) => {
+          if (err) throw err;
+          res.send(rows);
+        });
+        conn.release();
+      });
+    }
+);

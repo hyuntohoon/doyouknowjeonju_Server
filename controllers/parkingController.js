@@ -1,5 +1,7 @@
 const mysql = require('mysql');
+var bodyParser = require('body-parser')
 const cnf = require('../cnf').SQLpool;
+const catchAsync = require("../utils/catchAsync");
 
 const pool = mysql.createPool({
     connectionLimit:cnf.connectionLimit,
@@ -9,18 +11,32 @@ const pool = mysql.createPool({
     database:cnf.database
 })
 
-exports.getAllparking = (fail, done) => {
-    pool.getConnection((err, conn) => { 
-        if(err) {
-            return fail(err);
-        }
+exports.searchAllparking = catchAsync(
+    async (req, res, next) => {
+      await pool.getConnection((err, conn) => {
+        if (err) return fail(err);
         let sql = "select * from parking";
         conn.query(sql, (err, rows) => {
-        if(err) {
-            return fail(err);
-        }
-        conn.release();
-        done(rows);
+          if (err) throw err;
+          res.send(rows);
         });
-    });
-};
+        conn.release();
+      });
+    }
+);
+
+exports.searchOneparking = catchAsync(
+    async (req, res, next) => {
+      await pool.getConnection((err, conn) => {
+        if (err) return fail(err);
+        let name = req.params.name;
+        let data = "%" + name + "%";
+        let sql = "select * from parking where parkName LIKE ?";
+        conn.query(sql, [data], (err, rows) => {
+          if (err) throw err;
+          res.send(rows);
+        });
+        conn.release();
+      });
+    }
+);
