@@ -1,7 +1,7 @@
 const mysql = require("mysql");
 const joi = require("joi");
 
-const config = require("../config");
+const config = require("../cnf");
 const catchAsync = require("../utils/catchAsync");
 
 const pool = mysql.createPool({

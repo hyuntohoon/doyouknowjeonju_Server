@@ -1,5 +1,5 @@
 const path = require("path");
-const config = require("../config");
+const config = require("../cnf");
 const mysql = require("mysql");
 const catchAsync = require("../utils/catchAsync");
 const pool = mysql.createPool({
