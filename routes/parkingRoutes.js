@@ -5,9 +5,9 @@ const router = express.Router();
 
 router
   .route('/')
-  .get(parkingController.searchAllparking);
+  .get(parkingController.getsearchAllparking);
 
 router
   .route('/:name')
-  .get(parkingController.searchOneparking);
+  .get(parkingController.getsearchOneparking);
 module.exports = router;

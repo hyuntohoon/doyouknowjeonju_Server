@@ -11,7 +11,7 @@ const pool = mysql.createPool({
     database:cnf.database
 })
 
-exports.searchAllparking = catchAsync(
+exports.getsearchAllparking = catchAsync(
     async (req, res, next) => {
       await pool.getConnection((err, conn) => {
         if (err) return fail(err);
@@ -25,7 +25,7 @@ exports.searchAllparking = catchAsync(
     }
 );
 
-exports.searchOneparking = catchAsync(
+exports.getsearchOneparking = catchAsync(
     async (req, res, next) => {
       await pool.getConnection((err, conn) => {
         if (err) return fail(err);

@@ -1,22 +1,28 @@
 const express = require("express");
 const todolistController = require("./../controllers/todolistController");
+const router = express();
 
-const router = express.Router();
+router.use(express.json());
 
 module.exports = router;
 
 router
-  .route("/")
-  .get(todolistController.searchAllTodolist)
+    .route('/')
+    .get(todolistController.getsearchAllTodolist);
 
 router
-    .route("/:userId")
-    .get(todolistController.insertTodolist)
+    .route('/:userId')
+    .get(todolistController.getsearchOneTodolist);
 
 router
-    .route("/:userId")
-    .get(todolistController.updateTodolist)
+    .route('/insert/:userId')
+    .post(todolistController.insertTodolist);
+    
 
 router
-    .route("/:userId")
-    .get(todolistController.deleteTodolist)
+    .route('/update/:userId')
+    .post(todolistController.updateTodolist);
+
+router
+    .route('/delete/:userId')
+    .post(todolistController.deleteTodolist);

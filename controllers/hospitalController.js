@@ -13,8 +13,8 @@ const pool = mysql.createPool({
     database:cnf.database
 })
 
-
-exports.searchAllhospital = catchAsync(
+//모든 병원
+exports.getsearchAllhospital = catchAsync(
     async (req, res, next) => {
       await pool.getConnection((err, conn) => {
         if (err) return fail(err);
@@ -27,8 +27,8 @@ exports.searchAllhospital = catchAsync(
       });
     }
 );
-
-exports.searchOnehospital = catchAsync(
+//병원 하나 검색
+exports.getsearchOnehospital = catchAsync(
     async (req, res, next) => {
       await pool.getConnection((err, conn) => {
         if (err) return fail(err);
@@ -43,8 +43,8 @@ exports.searchOnehospital = catchAsync(
       });
     }
 );
-
-exports.allHospital10000000 = catchAsync(
+//내과
+exports.getallHospital10000000 = catchAsync(
     async (req, res, next) => {
       await pool.getConnection((err, conn) => {
         if (err) return fail(err);
@@ -58,8 +58,8 @@ exports.allHospital10000000 = catchAsync(
     }
 );
 
-
-exports.allHospital01000000 = catchAsync(
+//신경과
+exports.getallHospital01000000 = catchAsync(
     async (req, res, next) => {
       await pool.getConnection((err, conn) => {
         if (err) return fail(err);
@@ -72,8 +72,8 @@ exports.allHospital01000000 = catchAsync(
       });
     }
 );
-
-exports.allHospital00100000 = catchAsync(
+//정신과
+exports.getallHospital00100000 = catchAsync(
     async (req, res, next) => {
       await pool.getConnection((err, conn) => {
         if (err) return fail(err);
@@ -86,8 +86,8 @@ exports.allHospital00100000 = catchAsync(
       });
     }
 );
-
-exports.allHospital00010000 = catchAsync(
+//외과
+exports.getallHospital00010000 = catchAsync(
     async (req, res, next) => {
       await pool.getConnection((err, conn) => {
         if (err) return fail(err);
@@ -100,8 +100,8 @@ exports.allHospital00010000 = catchAsync(
       });
     }
 );
-
-exports.allHospital00001000 = catchAsync(
+//안과
+exports.getallHospital00001000 = catchAsync(
     async (req, res, next) => {
       await pool.getConnection((err, conn) => {
         if (err) return fail(err);
@@ -114,8 +114,8 @@ exports.allHospital00001000 = catchAsync(
       });
     }
 );
-
-exports.allHospital00000100 = catchAsync(
+//치과
+exports.getallHospital00000100 = catchAsync(
     async (req, res, next) => {
       await pool.getConnection((err, conn) => {
         if (err) return fail(err);
@@ -128,8 +128,8 @@ exports.allHospital00000100 = catchAsync(
       });
     }
 );
-
-exports.allHospital00000010 = catchAsync(
+//이비인후과
+exports.getallHospital00000010 = catchAsync(
     async (req, res, next) => {
       await pool.getConnection((err, conn) => {
         if (err) return fail(err);
@@ -142,9 +142,8 @@ exports.allHospital00000010 = catchAsync(
       });
     }
 );
-
-
-exports.allHospital00000001 = catchAsync(
+//산부인과
+exports.getallHospital00000001 = catchAsync(
     async (req, res, next) => {
       await pool.getConnection((err, conn) => {
         if (err) return fail(err);
