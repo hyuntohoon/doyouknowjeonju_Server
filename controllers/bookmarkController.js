@@ -32,6 +32,7 @@ exports.createBookmark = catchAsync(
   }
 );
 
+/*
 exports.deleteBookmark = catchAsync(
   async (req, res, next) => {
     await pool.getConnection((err, conn) => {
@@ -47,7 +48,7 @@ exports.deleteBookmark = catchAsync(
     });
   }
 );
-
+*/
 exports.getBookmark = catchAsync(
   async (req, res, next) => {
     await pool.getConnection((err, conn) => {
