@@ -5,8 +5,14 @@ const todolistRouter = require("./routes/todolistRoutes");
 const parkingRouter = require("./routes/parkingRoutes");
 const hospitalRouter = require("./routes/hospitalRoutes");
 const bookmarkRouter = require("./routes/bookmarkRoutes");
-
+const bodyParser = require("body-parser");
+const joi = require("joi");
 const app = express();
+
+app.use(express.json());
+app.use(
+  bodyParser.urlencoded({ extended: false })
+);
 
 app.use("/user", userRouter);
 app.use("/todolist", todolistRouter);
