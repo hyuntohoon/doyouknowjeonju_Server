@@ -9,7 +9,6 @@ router
 
 router
   .route("/:id")
-  .get(bookmarkController.getBookmark)
-  .delete(bookmarkController.deleteBookmark);
+  .get(bookmarkController.getBookmark);
 
 module.exports = router;

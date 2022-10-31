@@ -8,11 +8,11 @@ module.exports = router;
 
 router
   .route("/")
-  .get(todolistController.getsearchAllTodolist);
+  .get(todolistController.getAllTodolist)
+  .post(todolistController.insertTodolist);
 
 router
   .route("/:userId")
-  .get(todolistController.getsearchOneTodolist)
-  .post(todolistController.insertTodolist)
+  .get(todolistController.getTodolist)
   .put(todolistController.updateTodolist)
   .delete(todolistController.deleteTodolist);

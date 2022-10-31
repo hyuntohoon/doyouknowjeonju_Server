@@ -13,7 +13,7 @@ const pool = mysql.createPool({
   password: cnf.password,
   database: cnf.database,
 });
-exports.getsearchAllTodolist = catchAsync(
+exports.getAllTodolist = catchAsync(
   async (req, res, next) => {
     await pool.getConnection((err, conn) => {
       if (err) return fail(err);
@@ -27,7 +27,7 @@ exports.getsearchAllTodolist = catchAsync(
   }
 );
 
-exports.getsearchOneTodolist = catchAsync(
+exports.getTodolist = catchAsync(
   async (req, res, next) => {
     await pool.getConnection((err, conn) => {
       if (err) return fail(err);
@@ -48,7 +48,7 @@ exports.insertTodolist = catchAsync(
     await pool.getConnection((err, conn) => {
       if (err) return fail(err);
       let string = req.body.string;
-      let userId = req.params.userId; // 쿠기나 세션 혹은 jwt?로 ID 가져와야 해서 바꿔야할듯
+      let userId = req.body.userId; // 쿠기나 세션 혹은 jwt?로 ID 가져와야 해서 바꿔야할듯
       let sql = `insert into todolist(string, userId) values(?, ?)`;
       conn.query(
         sql,
