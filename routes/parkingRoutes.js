@@ -4,10 +4,10 @@ const parkingController = require("./../controllers/parkingController");
 const router = express.Router();
 
 router
-  .route('/')
-  .get(parkingController.getsearchAllparking);
+  .route("/")
+  .get(parkingController.getAllParking);
 
 router
-  .route('/:name')
-  .get(parkingController.getsearchOneparking);
+  .route("/:name")
+  .get(parkingController.getParking);
 module.exports = router;
