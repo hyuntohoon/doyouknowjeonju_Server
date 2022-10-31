@@ -3,7 +3,6 @@ const mysql = require("mysql");
 var bodyParser = require("body-parser");
 const cnf = require("../cnf").SQLpool;
 const catchAsync = require("../utils/catchAsync");
-
 var app = express();
 app.use(express.json());
 
@@ -14,35 +13,32 @@ const pool = mysql.createPool({
   password: cnf.password,
   database: cnf.database,
 });
-/*
-exports.getAllhospital = (fail, done) => {
-    pool.getConnection((err, conn) => { 
-        if(err) {
-            return fail(err);
-        }
-        let sql = "select * from hospital";
-        conn.query(sql, (err, rows) => {
-        if(err) {
-            return fail(err);
-        }
-        conn.release();
-        done(rows);
-        });
-    });
-};
-*/
-exports.getTodolist = catchAsync(
+exports.getsearchAllTodolist = catchAsync(
   async (req, res, next) => {
     await pool.getConnection((err, conn) => {
       if (err) return fail(err);
-    });
-    let sql = "select * from todolist";
-    conn.query(sql, (err, rows) => {
-      if (err) {
-        return fail(err);
-      }
+      let sql = "select * from todolist";
+      conn.query(sql, (err, rows) => {
+        if (err) throw err;
+        res.send(rows);
+      });
       conn.release();
-      done(rows);
+    });
+  }
+);
+
+exports.getsearchOneTodolist = catchAsync(
+  async (req, res, next) => {
+    await pool.getConnection((err, conn) => {
+      if (err) return fail(err);
+      let userId = req.params.userId;
+      let sql =
+        "select * from todolist where userId = ?";
+      conn.query(sql, [userId], (err, rows) => {
+        if (err) throw err;
+        res.send(rows);
+      });
+      conn.release();
     });
   }
 );
@@ -51,35 +47,38 @@ exports.insertTodolist = catchAsync(
   async (req, res, next) => {
     await pool.getConnection((err, conn) => {
       if (err) return fail(err);
-    });
-    let string = req.body.string;
-    let userId = req.body.userId; // 쿠기나 세션 혹은 jwt?로 ID 가져와야 해서 바꿔야할듯
-    let sql = `insert into todolist(string, userId) values('${string}', '${userId}')`;
-    conn.query(sql, (err, rows) => {
-      if (err) {
-        return fail(err);
-      }
+      let string = req.body.string;
+      let userId = req.params.userId; // 쿠기나 세션 혹은 jwt?로 ID 가져와야 해서 바꿔야할듯
+      let sql = `insert into todolist(string, userId) values(?, ?)`;
+      conn.query(
+        sql,
+        [string, userId],
+        (err, rows) => {
+          if (err) throw err;
+          res.send(rows);
+        }
+      );
       conn.release();
-      console.log(done(rows));
     });
   }
 );
-
 exports.updateTodolist = catchAsync(
   async (req, res, next) => {
     await pool.getConnection((err, conn) => {
       if (err) return fail(err);
-    });
-    let check = req.body.check;
-    let string = req.body.string;
-    let userId = req.body.userId; // 쿠기나 세션 혹은 jwt?로 ID 가져와야 해서 바꿔야할듯
-    let sql = `update todolist set string = '${string}' where userId = '${userId}' and isCheck = ${check}`;
-    conn.query(sql, (err, rows) => {
-      if (err) {
-        return fail(err);
-      }
+      let string = req.body.string;
+      let isCheck = req.body.check;
+      let userId = req.params.userId; // 쿠기나 세션 혹은 jwt?로 ID 가져와야 해서 바꿔야할듯
+      let sql = `update todolist set string = ? where userId = ? and isCheck = ?`;
+      conn.query(
+        sql,
+        [string, userId, isCheck],
+        (err, rows) => {
+          if (err) throw err;
+          res.send(rows);
+        }
+      );
       conn.release();
-      console.log(done(rows));
     });
   }
 );
@@ -88,17 +87,18 @@ exports.deleteTodolist = catchAsync(
   async (req, res, next) => {
     await pool.getConnection((err, conn) => {
       if (err) return fail(err);
-    });
-    let check = req.body.check;
-    let string = req.body.string;
-    let userId = req.body.userId; // 쿠기나 세션 혹은 jwt?로 ID 가져와야 해서 바꿔야할듯
-    let sql = `delete from todolist where userId ='${userId}' and isCheck = ${check}`;
-    conn.query(sql, (err, rows) => {
-      if (err) {
-        return fail(err);
-      }
+      let isCheck = req.body.check;
+      let userId = req.params.userId; // 쿠기나 세션 혹은 jwt?로 ID 가져와야 해서 바꿔야할듯
+      let sql = `delete from todolist where userId = ? and isCheck = ?`;
+      conn.query(
+        sql,
+        [userId, isCheck],
+        (err, rows) => {
+          if (err) throw err;
+          res.send(rows);
+        }
+      );
       conn.release();
-      console.log(done(rows));
     });
   }
 );
