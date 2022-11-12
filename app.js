@@ -7,8 +7,10 @@ const hospitalRouter = require("./routes/hospitalRoutes");
 const bookmarkRouter = require("./routes/bookmarkRoutes");
 const bodyParser = require("body-parser");
 const joi = require("joi");
+const cors = require("cors");
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 app.use(
   bodyParser.urlencoded({ extended: false })
