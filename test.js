@@ -45,7 +45,7 @@ axios
     exports.updateParking = catchAsync(
         async (req, res, next) => {
           for(i=1;i<num.length;i++) {
-            await pool.getConnection((err, conn) => {6
+            await pool.getConnection((err, conn) => {
               if (err) throw err;
               let sql = 'update parking set WHOLE_RMND_PRZN_NUM = ' + mysql.escape(num[i-1]) + ' where parkUuid= ' + mysql.escape(i) + ';';
               conn.query(sql, (err, rows, fields) => {
