@@ -30,22 +30,31 @@ axios
     }
   )
   .then((response) => {
-    var num = [];
-    for(i=0;i<response.data.resultList.length;i++){
-      if(response.data.resultList[i].WHOLE_RMND_PRZN_NUM===undefined){
-        num[i] = 'IS NULL';
-      }
-      else {
-        num[i] = response.data.resultList[i].WHOLE_RMND_PRZN_NUM;
+    /*let num = [];
+        for(i=0;i<response.data.resultList.length;i++){
+        if(response.data.resultList[i].WHOLE_RMND_PRZN_NUM===undefined){
+          num[i] = 'NULL';
+        }
+        else {
+          num[i] = response.data.resultList[i].WHOLE_RMND_PRZN_NUM;
       }
     }
-    /*for(i=0;i<num.length;i++){
+    for(i=0;i<num.length;i++){
       console.log(num[i])
     }*/
     exports.updateParking = catchAsync(
         async (req, res, next) => {
-          for(i=1;i<num.length;i++) {
             await pool.getConnection((err, conn) => {
+              let num = [];
+              for(i=0;i<response.data.resultList.length;i++){
+                if(response.data.resultList[i].WHOLE_RMND_PRZN_NUM===undefined){
+                  num[i] = 'NULL';
+                }
+                else {
+                  num[i] = response.data.resultList[i].WHOLE_RMND_PRZN_NUM;
+                }
+              }
+              for(i=1;i<=num.length;i++) {
               if (err) throw err;
               let sql = 'update parking set WHOLE_RMND_PRZN_NUM = ' + mysql.escape(num[i-1]) + ' where parkUuid= ' + mysql.escape(i) + ';';
               conn.query(sql, (err, rows, fields) => {
@@ -54,12 +63,12 @@ axios
                 }
                 console.log(rows);
               });
-              conn.release();
-            });
-          }
+            }
+            conn.release();
+          });
         }
       );
-      setInterval(this.updateParking,5000);
+    setInterval(this.updateParking,5000); //나중에 app.js에서 setInterval 함수 실행시키면 실시간으로 데이터 받아오기 가능
         /*setInterval(this.getAllParkingData,5000);*/
 })
  .catch((error) => {
