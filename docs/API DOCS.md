@@ -27,9 +27,9 @@
 |**todolist**|**URL**|**Method**|**URL Params**|**DATA Params**|**Success Response**|**Error Response**|
 |---|---|---|---|---|---|---|
 |*getTodolist*|todolist/:id|get|id=`integer`|---|code:200  Content:{}|code:401|
-|*insertTodolist*|todolist|post|---|JSON: {"string":"",  "userId":"",}|code:200  Content:{}|code:401|
-|*updateTodolist*|todolist/|get|---|JSON: {"string":"",  "check" : "",  "userId":"",}|code:200  Content:{}|code:401|
-|*deleteTodolist*|todolist/:id|post|---|JSON: {"string":"",  "userId":"",}|code:200  Content:{}|code:401|
+|*createTodolist*|todolist|post|---|JSON: {"string":"",  "userId":"",}|code:200  Content:{}|code:401|
+|*updateTodolist*|todolist/|put|---|JSON: {"string":"",  "check" : "",  "userId":"",}|code:200  Content:{}|code:401|
+|*deleteTodolist*|todolist/:id|delete|---|JSON: {"string":"",  "userId":"",}|code:200  Content:{}|code:401|
 #
 
 
